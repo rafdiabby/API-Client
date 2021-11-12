@@ -1,0 +1,153 @@
+﻿@{
+    ViewData["Title"] = "Employee Data";
+    Layout = "_LayoutAdmin";
+}
+@*<div class="container">
+    <img id="poke" class="img-fluid" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/250px-International_Pok%C3%A9mon_logo.svg.png" alt="Alternate Text" />
+</div>*@
+<h1>Employee List</h1>
+
+
+<div class="card shadow mb-4">
+            <div class="card-header py-3">
+                 <button type="button" id="btnAdd" title="Add employee data" class="btn fa btn-info btn-sm " data-toggle="modal" data-target="#modalRegister">
+                <i class="fa fa-plus"></i> Add
+            </button>
+            <button type="button" id="btnExcel" title="Export Excel" class="btn fa fa-download btn-success btn-sm " onclick="ExportExcel()">
+                Excel
+            </button>
+            </div>
+            <div class="card-body">
+            
+           
+<table id="employeeData" class="table table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>NIK</th>
+            <th>Fullname</th>
+            <th>Gender</th>
+            <th>Phone</th>
+            <th>Salary</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+ </div>
+        </div>
+@* add modal *@
+
+<div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Register employee data</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="registerForm container" class="modal-body">
+                 <form  id="register" class="needs-validation user" name="register" novalidate>
+                     <div class="form-group" hidden>
+                         <label for="isEdit">Is Edit?</label>
+                         <input type="text" class="form-control" id="isEdit">
+                     </div>
+                     <div class="row">
+                         <div class="col-sm">
+                             @* isinya kolom pertama *@
+                              <div class="form-group">
+                                <label for="inputNIK">NIK</label>
+                                <input type="text" class="form-control" id="inputNIK" name="nik" aria-describedby="inputNIK" placeholder="Masukkan NIK" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="form-group">
+                                        <label for="inputFirstName">First Name</label>
+                                        <input type="text" class="form-control" id="inputFirstName" name="firstName" placeholder="First Name" required>
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="form-group">
+                                        <label for="inputLastName">Last Name</label>
+                                        <input type="text" class="form-control" id="inputLastName" name="lastName" placeholder="Last Name" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" id="phone">
+                                <label for="inputPhone">Phone Number</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">+62</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="inputPhone" name="phone" placeholder="8xxxxxxxxx" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputBOD">Date of Birth</label>
+                                <input type="date" class="form-control" id="inputBOD" name="birthDate"  placeholder="yyyy-mm-dd" required>
+                            </div>
+                            <div class="form-group" id="gender">
+                                <label for="inputGender">Gender :</label>
+                                <div class="form-check form-check-inline" id="gender">
+                                    <input class="form-check-input" type="radio" name="genderOptions" id="inputGenderMale" value="0" required>
+                                    <label class="form-check-label" for="inputGender1">Male</label>
+                                </div>
+                                <div class="form-check form-check-inline" id="gender">
+                                    <input class="form-check-input" type="radio" name="genderOptions" id="inputGenderFemale" value="1" required>
+                                    <label class="form-check-label" for="inputGender2">Female</label>
+                                </div>
+                            </div>
+                         </div>
+                         <div class="col-sm">
+                             <div class="form-group">
+                                <label for="inputNIK">Salary</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Rp.</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="inputSalary" name="salary" aria-describedby="salaryHelp" placeholder="Insert salary here" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputNIK">Degree</label>
+                                <input type="text" class="form-control" id="inputDegree" name="degree" placeholder="Bachelor of ...." required>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputNIK">GPA</label>
+                                <input type="text" class="form-control" id="inputGPA" name="gpa" placeholder="GPA out of 4.00 scale" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">University</label>
+                                <select class="form-control" id="inputUniversity" name="universityId" required>
+                                    <option value="1">Universitas Indonesia</option>
+                                </select>
+                            </div>
+                         </div>
+                     </div>
+
+                     <div class="row">
+                         <div class="col-sm">
+                             <img src="https://account.samsung.com/membership/assets/images/intro/intro_mbr.png" class="img-fluid" alt="">
+                         </div>
+                         <div class="col-sm">
+                             <div class="form-group">
+                                <label for="exampleInputEmail1">Email address</label>
+                                <input type="email" class="form-control" name="email" id="inputEmail"  placeholder="Enter email" required>
+                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Password</label>
+                                <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password" required>
+                            </div>
+                         </div>
+                     </div>
+                 </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="submitEmployee();">Register</button>
+            </div>
+        </div>
+    </div>
+</div>
