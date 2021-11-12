@@ -16,4 +16,5 @@ Client/obj
 Client/bin
 API/bin/Debug/netcoreapp3.0/API.exe
 API/API.csproj.user
+.vs
 
